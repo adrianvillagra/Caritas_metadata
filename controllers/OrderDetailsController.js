@@ -14,7 +14,7 @@ export const getOrderDetail = async (request, response) => {
 		const orderDetail = await OrderDetailModel.findAll({
 			where: { id: request.params.id },
 		});
-		response.json(orderDetail);
+		response.json(orderDetail[0]);
 	} catch (error) {
 		response.json({ message: error.message });
 	}

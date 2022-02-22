@@ -14,7 +14,7 @@ export const getType = async (request, response) => {
 		const type = await TypeModel.findAll({
 			where: { id: request.params.id },
 		});
-		response.json(type);
+		response.json(type[0]);
 	} catch (error) {
 		response.json({ message: error.message });
 	}

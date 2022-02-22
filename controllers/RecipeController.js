@@ -14,7 +14,7 @@ export const getRecipe = async (request, response) => {
 		const recipe = await RecipeModel.findAll({
 			where: { id: request.params.id },
 		});
-		response.json(recipe);
+		response.json(recipe[0]);
 	} catch (error) {
 		response.json({ message: error.message });
 	}

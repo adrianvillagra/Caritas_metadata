@@ -14,7 +14,7 @@ export const getStock = async (request, response) => {
 		const stock = await StockModel.findAll({
 			where: { id: request.params.id },
 		});
-		response.json(stock);
+		response.json(stock[0]);
 	} catch (error) {
 		response.json({ message: error.message });
 	}

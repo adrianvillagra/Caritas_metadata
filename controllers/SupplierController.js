@@ -14,7 +14,7 @@ export const getSupplier = async (request, response) => {
 		const supplier = await SupplierModel.findAll({
 			where: { id: request.params.id },
 		});
-		response.json(supplier);
+		response.json(supplier[0]);
 	} catch (error) {
 		response.json({ message: error.message });
 	}

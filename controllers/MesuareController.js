@@ -14,7 +14,7 @@ export const getMesuare = async (request, response) => {
 		const mesuare = await MesuareModel.findAll({
 			where: { id: request.params.id },
 		});
-		response.json(mesuare);
+		response.json(mesuare[0]);
 	} catch (error) {
 		response.json({ message: error.message });
 	}

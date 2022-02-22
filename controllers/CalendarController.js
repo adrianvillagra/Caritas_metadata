@@ -14,7 +14,7 @@ export const getCalendar = async (request, response) => {
 		const calendar = await CalendarModel.findAll({
 			where: { id: request.params.id },
 		});
-		response.json(calendar);
+		response.json(calendar[0]);
 	} catch (error) {
 		response.json({ message: error.message });
 	}

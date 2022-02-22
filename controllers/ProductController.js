@@ -14,7 +14,7 @@ export const getProduct = async (request, response) => {
 		const product = await ProductModel.findAll({
 			where: { id: request.params.id },
 		});
-		response.json(product);
+		response.json(product[0]);
 	} catch (error) {
 		response.json({ message: error.message });
 	}
