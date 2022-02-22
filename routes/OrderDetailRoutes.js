@@ -5,7 +5,7 @@ import {
 	getOrderDetail,
 	updateOrderDetail,
 	deleteOrderDetail,
-} from '../controllers/OrderDetailController.js';
+} from '../controllers/OrderDetailsController.js';
 
 const router = express.Router();
 router.get('/', getAllOrderDetails);
