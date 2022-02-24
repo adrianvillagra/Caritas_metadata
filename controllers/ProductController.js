@@ -1,9 +1,36 @@
 import ProductModel from '../models/ProductModel.js';
+import TypeModel from '../models/TypeModel.js';
+import MesuareModel from '../models/MesuareModel.js';
 
 export const getAllProducts = async (request, response) => {
 	try {
-		const products = await ProductModel.findAll();
-		response.json(products);
+		// let products = await ProductModel.findAll({
+		// 	include: {
+		// 		model: TypeModel,
+		// 		include: [{ model: MesuareModel }],
+		// 	},
+		// });
+		const types = await TypeModel.findAll();
+		const mesuares = await MesuareModel.findAll();
+		let products = await ProductModel.findAll();
+		let productsList = [];
+		products.forEach((product) => {
+			mesuares.forEach((mesuare) => {
+				types.forEach((type) => {
+					if (type.id === product.type_id) {
+						if (mesuare.id === product.mesuare_id) {
+							productsList.push({
+								...product.dataValues,
+								mesuare_name: mesuare.name,
+								type_name: type.name,
+							});
+						}
+					}
+				});
+			});
+		});
+
+		response.json(productsList);
 	} catch (error) {
 		response.json({ message: error.message });
 	}
