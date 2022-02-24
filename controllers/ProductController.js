@@ -14,23 +14,28 @@ export const getAllProducts = async (request, response) => {
 		const mesuares = await MesuareModel.findAll();
 		let products = await ProductModel.findAll();
 		let productsList = [];
+
 		products.forEach((product) => {
 			mesuares.forEach((mesuare) => {
-				types.forEach((type) => {
-					if (type.id === product.type_id) {
-						if (mesuare.id === product.mesuare_id) {
-							productsList.push({
-								...product.dataValues,
-								mesuare_name: mesuare.name,
-								type_name: type.name,
-							});
-						}
-					}
-				});
+				if (mesuare.id === product.mesuare_id) {
+					productsList.push({
+						...product.dataValues,
+						mesuare_name: mesuare.name,
+					});
+				}
 			});
 		});
 
-		response.json(productsList);
+		types.forEach((type) => {
+			products.forEach((product, index) => {
+				if (type.id === product.type_id)
+					productsList[index].type_name = type.name;
+			});
+		});
+
+		const resp = { products: productsList, total: productsList.length };
+
+		response.json(resp);
 	} catch (error) {
 		response.json({ message: error.message });
 	}
