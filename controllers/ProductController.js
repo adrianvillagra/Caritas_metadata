@@ -63,12 +63,13 @@ export const createProduct = async (request, response) => {
 
 export const updateProduct = async (request, response) => {
 	try {
-		const product = await ProductModel.update({
+		const product = await ProductModel.update(request.body, {
 			where: { id: request.params.id },
 		});
-		response.json(product);
+
+		response.status(200).send({ message: 'Updated', product });
 	} catch (error) {
-		response.json({ message: error.message });
+		response.status(500).send({ message: error.message });
 	}
 };
 
