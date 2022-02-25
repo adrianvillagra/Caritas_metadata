@@ -41,6 +41,15 @@ export const getAllProducts = async (request, response) => {
 	}
 };
 
+export const getNewIdProduct = async () => {
+	try {
+		const product = await ProductModel.findAll();
+		return product[product.length].id + 1;
+	} catch (error) {
+		console.error({ message: error.message });
+	}
+};
+
 export const getProduct = async (request, response) => {
 	try {
 		const product = await ProductModel.findAll({
@@ -54,10 +63,11 @@ export const getProduct = async (request, response) => {
 
 export const createProduct = async (request, response) => {
 	try {
-		const product = await ProductModel.create(request.body);
-		response.json(product);
+		const body = { ...request.body, id: await getNewIdProduct() };
+		const product = await ProductModel.create(body);
+		response.status(200).send({ message: 'Succesfuly Created', product });
 	} catch (error) {
-		response.json({ message: error.message });
+		response.status(500).send({ message: error.message });
 	}
 };
 
@@ -66,8 +76,7 @@ export const updateProduct = async (request, response) => {
 		const product = await ProductModel.update(request.body, {
 			where: { id: request.params.id },
 		});
-
-		response.status(200).send({ message: 'Updated', product });
+		response.status(200).send({ message: 'Succesfuly Updated', product });
 	} catch (error) {
 		response.status(500).send({ message: error.message });
 	}
@@ -78,8 +87,8 @@ export const deleteProduct = async (request, response) => {
 		const product = await ProductModel.destroy({
 			where: { id: request.params.id },
 		});
-		response.json(product);
+		response.status(200).send({ message: 'Succesfuly deletead', product });
 	} catch (error) {
-		response.json({ message: error.message });
+		response.status(500).send({ message: error.message });
 	}
 };
