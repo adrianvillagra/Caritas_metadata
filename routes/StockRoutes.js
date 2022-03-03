@@ -12,6 +12,6 @@ router.get('/', getAllStock);
 router.get('/:id', getStock);
 router.post('/', createStock);
 router.put('/:id', updateStock);
-router.put('/:id', deleteStock);
+router.delete('/:id', deleteStock);
 
 export default router;

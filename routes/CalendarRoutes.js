@@ -12,6 +12,6 @@ router.get('/', getAllCalendars);
 router.get('/:id', getCalendar);
 router.post('/', createCalendar);
 router.put('/:id', updateCalendar);
-router.put('/:id', deleteCalendar);
+router.delete('/:id', deleteCalendar);
 
 export default router;

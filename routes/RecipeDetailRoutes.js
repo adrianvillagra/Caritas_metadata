@@ -12,6 +12,6 @@ router.get('/', getAllRecipeDetails);
 router.get('/:id', getRecipeDetail);
 router.post('/', createRecipeDetail);
 router.put('/:id', updateRecipeDetail);
-router.put('/:id', deleteRecipeDetail);
+router.delete('/:id', deleteRecipeDetail);
 
 export default router;

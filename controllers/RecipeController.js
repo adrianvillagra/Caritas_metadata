@@ -1,4 +1,4 @@
-import RecipeModel from '../models/RecipeDetail.js';
+import RecipeModel from '../models/RecipeModel.js';
 
 export const getAllRecipes = async (request, response) => {
 	try {
@@ -20,12 +20,23 @@ export const getRecipe = async (request, response) => {
 	}
 };
 
+export const getNewIdRecipe = async () => {
+	try {
+		const recipes = await RecipeModel.findAll();
+		return recipes ? recipes?.length + 1 : parseInt(Math.random());
+	} catch (error) {
+		console.error({ message: error.message });
+	}
+};
+
 export const createRecipe = async (request, response) => {
 	try {
-		const recipe = await RecipeModel.create(request.body);
-		response.json(recipe);
+		const body = { ...request.body, id: await getNewIdRecipe() };
+		console.log('bodyController:', body);
+		const recipe = await RecipeModel.create(body);
+		response.status(200).send({ message: 'Succesfuly Created', recipe });
 	} catch (error) {
-		response.json({ message: error.message });
+		response.status(500).send({ message: error.message });
 	}
 };
 

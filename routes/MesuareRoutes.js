@@ -12,6 +12,6 @@ router.get('/', getAllMesuares);
 router.get('/:id', getMesuare);
 router.post('/', createMesuare);
 router.put('/:id', updateMesuare);
-router.put('/:id', deleteMesuare);
+router.delete('/:id', deleteMesuare);
 
 export default router;

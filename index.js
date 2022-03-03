@@ -19,7 +19,7 @@ app.use('/calendars', calendarRoutes);
 app.use('/mesuares', mesuareRoutes);
 app.use('/order_details', orderDetailRoutes);
 app.use('/recipe_details', recipeDetailRoutes);
-app.use('/recipe', recipeRoutes);
+app.use('/recipes', recipeRoutes);
 app.use('/stock', stockRoutes);
 app.use('/suppliers', supplierRoutes);
 app.use('/types', typeRoutes);

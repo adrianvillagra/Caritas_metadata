@@ -1,8 +1,8 @@
 import express from 'express';
 import {
-	createRecipe,
 	getAllRecipes,
 	getRecipe,
+	createRecipe,
 	updateRecipe,
 	deleteRecipe,
 } from '../controllers/RecipeController.js';
@@ -12,6 +12,6 @@ router.get('/', getAllRecipes);
 router.get('/:id', getRecipe);
 router.post('/', createRecipe);
 router.put('/:id', updateRecipe);
-router.put('/:id', deleteRecipe);
+router.delete('/:id', deleteRecipe);
 
 export default router;

@@ -12,6 +12,6 @@ router.get('/', getAllTypes);
 router.get('/:id', getType);
 router.post('/', createType);
 router.put('/:id', updateType);
-router.put('/:id', deleteType);
+router.delete('/:id', deleteType);
 
 export default router;

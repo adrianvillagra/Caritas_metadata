@@ -3,7 +3,7 @@ import { DataTypes } from 'sequelize';
 
 const TypeModel = db.define('types', {
 	name: { type: DataTypes.STRING },
-	id: { type: DataTypes.STRING, primaryKey: true },
+	id: { type: DataTypes.INTEGER, primaryKey: true },
 });
 
 export default TypeModel;

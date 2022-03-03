@@ -12,6 +12,6 @@ router.get('/', getAllOrderDetails);
 router.get('/:id', getOrderDetail);
 router.post('/', createOrderDetail);
 router.put('/:id', updateOrderDetail);
-router.put('/:id', deleteOrderDetail);
+router.delete('/:id', deleteOrderDetail);
 
 export default router;
