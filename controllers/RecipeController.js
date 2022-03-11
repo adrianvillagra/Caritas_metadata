@@ -1,9 +1,11 @@
 import RecipeModel from '../models/RecipeModel.js';
+import RecipeDetailModel from '../models/RecipeDetailModel.js';
 
 export const getAllRecipes = async (request, response) => {
 	try {
 		const recipes = await RecipeModel.findAll();
-		response.json(recipes);
+		const resp = { recipes, total: recipes.length };
+		response.json(resp);
 	} catch (error) {
 		response.json({ message: error.message });
 	}
@@ -11,10 +13,15 @@ export const getAllRecipes = async (request, response) => {
 
 export const getRecipe = async (request, response) => {
 	try {
-		const recipe = await RecipeModel.findAll({
-			where: { id: request.params.id },
-		});
-		response.json(recipe[0]);
+		let query = `SELECT recipes.name AS recipeName, products.name AS productName, products.id AS productId, mesuares.name AS mesuare, recipe_details.quantity as quantity FROM recipes INNER JOIN recipe_details oN recipes.id = recipe_details.recipe_id  INNER JOIN products ON recipe_details.product_id = products.id inner JOIn mesuares ON products.mesuare_id = mesuares.id WHERE recipes.id=${request.params.id}`;
+		const [result, metadata] = await RecipeDetailModel.sequelize.query(query);
+		if (result?.length) {
+			response.json(result);
+		} else {
+			query = `SELECT recipes.name AS recipeName FROM recipes WHERE recipes.id=${request.params.id}`;
+			const [result, metadata] = await RecipeDetailModel.sequelize.query(query);
+			response.json(result);
+		}
 	} catch (error) {
 		response.json({ message: error.message });
 	}
@@ -32,7 +39,6 @@ export const getNewIdRecipe = async () => {
 export const createRecipe = async (request, response) => {
 	try {
 		const body = { ...request.body, id: await getNewIdRecipe() };
-		console.log('bodyController:', body);
 		const recipe = await RecipeModel.create(body);
 		response.status(200).send({ message: 'Succesfuly Created', recipe });
 	} catch (error) {
@@ -42,12 +48,14 @@ export const createRecipe = async (request, response) => {
 
 export const updateRecipe = async (request, response) => {
 	try {
-		const recipe = await RecipeModel.update({
+		const recipe = await RecipeModel.update(request.body, {
 			where: { id: request.params.id },
 		});
-		response.json(recipe);
+		response
+			.status(200)
+			.send({ message: 'Succesfuly updated', recipe, status: 'OK' });
 	} catch (error) {
-		response.json({ message: error.message });
+		response.status(500).send({ message: error.message });
 	}
 };
 
