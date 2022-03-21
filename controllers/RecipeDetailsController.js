@@ -29,7 +29,7 @@ export const createRecipeDetail = async (request, response) => {
 		bodyDetails = bodyDetails.substring(0, bodyDetails.length - 1);
 		const query = `INSERT INTO recipe_details (recipe_id, product_id, quantity) VALUES ${bodyDetails}`;
 		const [result, metadata] = await RecipeDetailModel.sequelize.query(query);
-		response.status(200).send({ message: 'Succesfuly Created', result });
+		response.status(200).send({ message: 'Successfully Created', result });
 	} catch (error) {
 		response.status(500).send({ message: error.message });
 	}

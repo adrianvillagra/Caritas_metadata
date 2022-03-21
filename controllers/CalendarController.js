@@ -2,8 +2,10 @@ import CalendarModel from '../models/CalendarModel.js';
 
 export const getAllCalendars = async (request, response) => {
 	try {
-		const calendars = await CalendarModel.findAll();
-		response.json(calendars);
+		const query =
+			'SELECT calendars.id, calendars.date, calendars.recipe_id, recipes.name FROM calendars INNER JOIN recipes ON calendars.recipe_id = recipes.id';
+		const [result, metadata] = await CalendarModel.sequelize.query(query);
+		response.status(200).send({ message: 'Successfully', result });
 	} catch (error) {
 		response.json({ message: error.message });
 	}
@@ -23,20 +25,21 @@ export const getCalendar = async (request, response) => {
 export const createCalendar = async (request, response) => {
 	try {
 		const calendar = await CalendarModel.create(request.body);
-		response.json(calendar);
+		response.status(200).send({ message: 'Successfully Added', calendar });
 	} catch (error) {
-		response.json({ message: error.message });
+		response.status(500).send({ message: error.message });
 	}
 };
 
 export const updateCalendar = async (request, response) => {
+	console.log('requestUpdateCal:', request);
 	try {
-		const calendar = await CalendarModel.update({
+		const calendar = await CalendarModel.update(request.body, {
 			where: { id: request.params.id },
 		});
-		response.json(calendar);
+		response.status(200).send({ message: 'Successfully Updated', calendar });
 	} catch (error) {
-		response.json({ message: error.message });
+		response.status(500).send({ message: error.message });
 	}
 };
 

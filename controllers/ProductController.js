@@ -65,7 +65,7 @@ export const createProduct = async (request, response) => {
 	try {
 		const body = { ...request.body, id: await getNewIdProduct() };
 		const product = await ProductModel.create(body);
-		response.status(200).send({ message: 'Succesfuly Created', product });
+		response.status(200).send({ message: 'Successfully Created', product });
 	} catch (error) {
 		response.status(500).send({ message: error.message });
 	}
@@ -76,7 +76,7 @@ export const updateProduct = async (request, response) => {
 		const product = await ProductModel.update(request.body, {
 			where: { id: request.params.id },
 		});
-		response.status(200).send({ message: 'Succesfuly Updated', product });
+		response.status(200).send({ message: 'Successfully Updated', product });
 	} catch (error) {
 		response.status(500).send({ message: error.message });
 	}
@@ -87,7 +87,7 @@ export const deleteProduct = async (request, response) => {
 		const product = await ProductModel.destroy({
 			where: { id: request.params.id },
 		});
-		response.status(200).send({ message: 'Succesfuly deletead', product });
+		response.status(200).send({ message: 'Successfully deleted', product });
 	} catch (error) {
 		response.status(500).send({ message: error.message });
 	}
