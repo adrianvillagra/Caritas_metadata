@@ -13,7 +13,7 @@ export const getAllRecipes = async (request, response) => {
 
 export const getRecipe = async (request, response) => {
 	try {
-		let query = `SELECT recipes.name AS recipeName, products.name AS productName, products.id AS productId, mesuares.name AS mesuare, recipe_details.quantity as quantity FROM recipes INNER JOIN recipe_details oN recipes.id = recipe_details.recipe_id  INNER JOIN products ON recipe_details.product_id = products.id inner JOIn mesuares ON products.mesuare_id = mesuares.id WHERE recipes.id=${request.params.id}`;
+		let query = `SELECT recipes.name AS recipeName, products.name AS productName, products.id AS productId, measures.name AS measure, recipe_details.quantity as quantity FROM recipes INNER JOIN recipe_details oN recipes.id = recipe_details.recipe_id  INNER JOIN products ON recipe_details.product_id = products.id inner JOIn measures ON products.mesuare_id = measures.id WHERE recipes.id=${request.params.id}`;
 		const [result, metadata] = await RecipeDetailModel.sequelize.query(query);
 		if (result?.length) {
 			response.json(result);
@@ -38,9 +38,10 @@ export const getNewIdRecipe = async () => {
 
 export const createRecipe = async (request, response) => {
 	try {
-		const body = { ...request.body, id: await getNewIdRecipe() };
-		const recipe = await RecipeModel.create(body);
-		response.status(200).send({ message: 'Succesfuly Created', recipe });
+		const recipeName = { ...request.body };
+		let query = `INSERT INTO recipes (name) VALUES (${recipeName})`;
+		const [result, metadata] = await RecipeModel.sequelize.query(query);
+		response.status(200).send({ message: 'Successfully Created', result });
 	} catch (error) {
 		response.status(500).send({ message: error.message });
 	}

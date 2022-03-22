@@ -3,7 +3,7 @@ import cors from 'cors';
 import db from './database/db.js';
 import productRoutes from './routes/ProductRoutes.js';
 import calendarRoutes from './routes/CalendarRoutes.js';
-import mesuareRoutes from './routes/MesuareRoutes.js';
+import measureRoutes from './routes/MeasureRoutes.js';
 import orderDetailRoutes from './routes/OrderDetailRoutes.js';
 import recipeDetailRoutes from './routes/RecipeDetailRoutes.js';
 import recipeRoutes from './routes/RecipeRoutes.js';
@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/products', productRoutes);
 app.use('/calendars', calendarRoutes);
-app.use('/mesuares', mesuareRoutes);
+app.use('/measures', measureRoutes);
 app.use('/order_details', orderDetailRoutes);
 app.use('/recipe_details', recipeDetailRoutes);
 app.use('/recipes', recipeRoutes);
@@ -26,9 +26,9 @@ app.use('/types', typeRoutes);
 
 try {
 	await db.authenticate();
-	console.log('Successful conecction');
+	console.log('Successful connection');
 } catch (error) {
-	console.log(`Unsuccessful conecction: ${error}`);
+	console.log(`Unsuccessful connection: ${error}`);
 }
 
 app.get('/', (req, res) => {

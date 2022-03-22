@@ -1,8 +1,8 @@
 import db from '../database/db.js';
 import { DataTypes } from 'sequelize';
 
-const MesuareModel = db.define('mesuares', {
+const MeasureModel = db.define('measures', {
 	name: { type: DataTypes.STRING },
 });
 
-export default MesuareModel;
+export default MeasureModel;
