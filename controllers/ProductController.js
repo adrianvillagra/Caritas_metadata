@@ -1,26 +1,20 @@
 import ProductModel from '../models/ProductModel.js';
 import TypeModel from '../models/TypeModel.js';
-import MesuareModel from '../models/MeasureModel.js';
+import MeasureModel from '../models/MeasureModel.js';
 
 export const getAllProducts = async (request, response) => {
 	try {
-		// let products = await ProductModel.findAll({
-		// 	include: {
-		// 		model: TypeModel,
-		// 		include: [{ model: MesuareModel }],
-		// 	},
-		// });
 		const types = await TypeModel.findAll();
-		const measures = await MesuareModel.findAll();
+		const measures = await MeasureModel.findAll();
 		let products = await ProductModel.findAll();
 		let productsList = [];
 
 		products.forEach((product) => {
-			measures.forEach((mesuare) => {
-				if (mesuare.id === product.mesuare_id) {
+			measures.forEach((measure) => {
+				if (measure.id === product.measure_id) {
 					productsList.push({
 						...product.dataValues,
-						mesuare_name: mesuare.name,
+						measure: measure.name,
 					});
 				}
 			});

@@ -13,7 +13,7 @@ export const getAllRecipes = async (request, response) => {
 
 export const getRecipe = async (request, response) => {
 	try {
-		let query = `SELECT recipes.name AS recipeName, products.name AS productName, products.id AS productId, measures.name AS measure, recipe_details.quantity as quantity FROM recipes INNER JOIN recipe_details oN recipes.id = recipe_details.recipe_id  INNER JOIN products ON recipe_details.product_id = products.id inner JOIn measures ON products.mesuare_id = measures.id WHERE recipes.id=${request.params.id}`;
+		let query = `SELECT recipes.name AS recipeName, products.name AS productName, products.id AS productId, measures.name AS measure, recipe_details.quantity as quantity FROM recipes INNER JOIN recipe_details oN recipes.id = recipe_details.recipe_id  INNER JOIN products ON recipe_details.product_id = products.id inner JOIn measures ON products.measure_id = measures.id WHERE recipes.id=${request.params.id}`;
 		const [result, metadata] = await RecipeDetailModel.sequelize.query(query);
 		if (result?.length) {
 			response.json(result);
