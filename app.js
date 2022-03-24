@@ -10,10 +10,14 @@ import recipeDetailsRoutes from './routes/recipeDetailsRoutes.js';
 import stockRoutes from './routes/stockRoutes.js';
 import supplierRoutes from './routes/supplyRoutes.js';
 import typeRoutes from './routes/TypeRoutes.js';
+import batchRoutes from './routes/BatchRoutes.js';
+import batchDetailRoutes from './routes/BatchDetailRoute.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use('/batch', batchRoutes);
+app.use('/batch_details', batchDetailRoutes);
 app.use('/products', productRoutes);
 app.use('/measure', measureRoutes);
 app.use('/calendars', calendarRoutes);

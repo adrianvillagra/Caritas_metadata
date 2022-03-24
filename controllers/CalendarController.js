@@ -3,7 +3,7 @@ import CalendarModel from '../models/CalendarModel.js';
 export const getAllCalendars = async (request, response) => {
 	try {
 		const query =
-			'SELECT calendars.id, calendars.date, calendars.recipe_id, recipes.name FROM calendars INNER JOIN recipes ON calendars.recipe_id = recipes.id';
+			'SELECT calendars.id, calendars.date, calendars.recipe_id, recipes.name, batch_details.period_start, batch_details.batch_id, batch_details.period_end FROM calendars INNER JOIN recipes ON calendars.recipe_id = recipes.id INNER JOIN batch_details WHERE calendars.date BETWEEN batch_details.period_start and batch_details.period_end';
 		const [result, metadata] = await CalendarModel.sequelize.query(query);
 		response.status(200).send({ message: 'Successfully', result });
 	} catch (error) {
