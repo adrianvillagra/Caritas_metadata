@@ -3,7 +3,7 @@ import BatchModel from '../models/BatchModel.js';
 export const getAllBatch = async (request, response) => {
 	try {
 		const query =
-			'SELECT batch.id, batch.total_days, batch_details.id, batch_details.period FROM batch_details INNER JOIN batch ON batch_details.batch_id = batch.id';
+			'SELECT batch.id, batch.total_days, batch_details.id, batch_details.period_start, batch_details.period_end  FROM batch_details INNER JOIN batch ON batch_details.batch_id = batch.id';
 		const [result, metadata] = await BatchModel.sequelize.query(query);
 		response.status(200).send({ message: 'Successfully', result });
 	} catch (error) {
