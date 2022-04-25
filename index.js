@@ -12,6 +12,7 @@ import supplierRoutes from './routes/SupplierRoutes.js';
 import typeRoutes from './routes/TypeRoutes.js';
 import batchRoutes from './routes/BatchRoutes.js';
 import batchDetailRoutes from './routes/BatchDetailRoutes.js';
+import commerceRoutes from './routes/CommerceRoutes.js';
 
 const app = express();
 app.use(cors());
@@ -27,6 +28,7 @@ app.use('/recipe_details', recipeDetailRoutes);
 app.use('/stock', stockRoutes);
 app.use('/suppliers', supplierRoutes);
 app.use('/types', typeRoutes);
+app.use('/commerce', commerceRoutes);
 
 try {
 	await db.authenticate();

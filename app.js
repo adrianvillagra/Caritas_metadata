@@ -12,10 +12,12 @@ import supplierRoutes from './routes/supplyRoutes.js';
 import typeRoutes from './routes/TypeRoutes.js';
 import batchRoutes from './routes/BatchRoutes.js';
 import batchDetailRoutes from './routes/BatchDetailRoute.js';
+import commerceRoutes from './routes/CommerceRoutes.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use('/commerce', commerceRoutes);
 app.use('/batch', batchRoutes);
 app.use('/batch_details', batchDetailRoutes);
 app.use('/products', productRoutes);
